@@ -13,6 +13,7 @@ const INTERVAL = 3600 * 1000 * 6; // 6 hours
 
 const user = process.argv[2];
 const password = process.argv[3];
+const recipent = process.argv[4];
 
 var mail;
 
@@ -85,13 +86,16 @@ function setupMail() {
 
 function sendEmail(productName, price, productLink) {
     mail.send(
-       from:    "you <flying.petals2@gmail.com>", 
-       to:      "someone <duytiep@gmail.com>",
-       subject: productName,
-       attachment: [
-            {data: "<html>" + productName + ", SGD " + "price <br> " + productLink +  "</html>", alternative:true},
-       ]
-    }, afterSend);
+                {
+                   from:    user, 
+                   to:      recipent,
+                   subject: productName,
+                   attachment: [
+                        {data: "<html>" + productName + ", SGD " + price + " <br> " + productLink +  "</html>", alternative:true},
+                   ]
+                }, 
+                afterSend
+            );
     
     function afterSend(err, message) {
         console.log(err || message); 
